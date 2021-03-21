@@ -1,18 +1,36 @@
-#include<iostream>
+#include <array>
+#include <iostream>
+
 using namespace std;
 
-int main(){
+int main(void) {
+    // An elegant container to store the vowels
+    array<char, 5> vowels{'A', 'E', 'I', 'O', 'U'};
     char character;
-    cout<<"\nEnter a character:";
-    cin>>character;
-    if(character=='A' || character== 'E' || character== 'I' || character== 'O' || character== 'U'){
-        cout<<"\nThe character is a Vowel"<<endl;
+    // Sets flag for whether the input was vowel
+    bool isVowel = false;
+
+    cout << "Enter a character: ";
+    cin >> character;
+
+    // Always check if the input was valid
+    if (!cin) {
+        cerr << "error: Input must be a valid char." << endl;
+        return EXIT_FAILURE;
     }
-    else if(character== 'a' || character== 'e' || character== 'i' || character== 'o' || character== 'u'){
-        cout<<"\nThe character is a Vowel"<<endl;
-    }
-    else{
-        cout<<"\nThe character is a Consonant"<<endl;
-    }
-return 0;
+
+    // Using range-based loop to iterate through each element for a match
+    for (const auto &it : vowels)
+        // If the it was directly equal to char, or, the tolower() version
+        // matches, then it's a vowel, otherwise not
+        if (it == character || tolower(it) == character) {
+            isVowel = true;
+            break;
+        }
+
+    // Using ternary operation to determine the expected text elegantly
+    auto ternary = (isVowel) ? "vowel" : "consonant";
+    cout << "The character was a " << ternary << endl;
+
+    return 0;
 }
